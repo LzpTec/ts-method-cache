@@ -11,7 +11,7 @@ src/.demo/
 *.tgz
 .yarn-integrity
 .env
-dist/
+#dist/
 ts-mc-local-storage/
 coverage
 e2e/package-lock.json
