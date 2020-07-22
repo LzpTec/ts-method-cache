@@ -8,8 +8,7 @@ import {
   getMethodCacheProvider,
   setCacheContainer
 } from '../resolver/method-cache-provider.resolver';
-
-import { createGUID } from './string.util';
+import { createHexoid } from './string.util';
 
 export function createCacheDecorator(
   type: CacheType,
@@ -65,7 +64,7 @@ export function normalizeCacheSettings<U extends BaseCacheOptions>(options?: U |
   }
 
   if (!options.key) {
-    options.key = createGUID();
+    options.key = createHexoid();
   }
 
   return options;

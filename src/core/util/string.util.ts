@@ -1,3 +1,7 @@
+import hexoid from 'hexoid';
+
+const hexoidGenerator = hexoid(48);
+
 export function createGUID(): string {
   function S4() {
     // tslint:disable-next-line:no-bitwise
@@ -5,4 +9,8 @@ export function createGUID(): string {
   }
 
   return `${S4()}${S4()}-${S4()}-4${S4().substr(0, 3)}-${S4()}-${S4()}${S4()}${S4()}`.toLowerCase();
+}
+
+export function createHexoid(): string {
+  return hexoidGenerator();
 }
