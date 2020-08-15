@@ -6,20 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var method_cache_provider_resolver_1 = require("../resolver/method-cache-provider.resolver");
-var cache_container_decorator_1 = require("./cache-container.decorator");
-describe('Cache container decorator is properly set', function () {
-    var key = 'test';
-    var TestCache = /** @class */ (function () {
-        function TestCache() {
-        }
-        TestCache = __decorate([
-            cache_container_decorator_1.CacheContainer(key)
-        ], TestCache);
-        return TestCache;
-    }());
-    it('should have a cache container options where the key equals the passed key', function () {
-        var options = method_cache_provider_resolver_1.getCacheContainer(TestCache);
+const method_cache_provider_resolver_1 = require("../resolver/method-cache-provider.resolver");
+const cache_container_decorator_1 = require("./cache-container.decorator");
+describe('Cache container decorator is properly set', () => {
+    const key = 'test';
+    let TestCache = class TestCache {
+    };
+    TestCache = __decorate([
+        cache_container_decorator_1.CacheContainer(key)
+    ], TestCache);
+    it('should have a cache container options where the key equals the passed key', () => {
+        const options = method_cache_provider_resolver_1.getCacheContainer(TestCache);
         expect(options.key).toEqual(key);
     });
 });

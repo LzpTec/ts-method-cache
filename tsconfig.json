@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "",
-    "target": "es5",
+    "target": "ES2018",
     "module": "commonjs",
     "moduleResolution": "node",
     "declaration": true,
@@ -13,9 +13,11 @@
     "rootDir": "./src",
     "skipLibCheck": true,
     "stripInternal": true,
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
     "lib": [
-      "es2017",
+      "ES2018",
       "dom"
     ]
   },

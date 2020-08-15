@@ -6,23 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var storage_cache_decorator_1 = require("./storage-cache.decorator");
-describe('Storage cache decorator is properly set', function () {
-    var TestCache = /** @class */ (function () {
-        function TestCache() {
+const storage_cache_decorator_1 = require("./storage-cache.decorator");
+describe('Storage cache decorator is properly set', () => {
+    class TestCache {
+        constructor() {
             this.called = 0;
         }
-        TestCache.prototype.testMethod = function () {
+        testMethod() {
             this.called++;
-        };
-        __decorate([
-            storage_cache_decorator_1.StorageCache('testMethod')
-        ], TestCache.prototype, "testMethod", null);
-        return TestCache;
-    }());
+        }
+    }
+    __decorate([
+        storage_cache_decorator_1.StorageCache('testMethod')
+    ], TestCache.prototype, "testMethod", null);
     storage_cache_decorator_1.StorageCache('testMethod')(TestCache.prototype, 'testMethod', Object.getOwnPropertyDescriptor(TestCache.prototype, 'testMethod'));
-    var testCache = new TestCache();
-    it('should only call the test method once', function () {
+    const testCache = new TestCache();
+    it('should only call the test method once', () => {
         testCache.testMethod();
         testCache.testMethod();
         expect(testCache.called).toEqual(1);

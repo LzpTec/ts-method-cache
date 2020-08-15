@@ -1,57 +1,54 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MethodCacheService = void 0;
-var cache_type_enum_1 = require("../enum/cache-type.enum");
-var method_cache_provider_resolver_1 = require("../resolver/method-cache-provider.resolver");
-var MethodCacheService = /** @class */ (function () {
-    function MethodCacheService() {
-    }
-    MethodCacheService.prototype.clearAllCache = function () {
+const cache_type_enum_1 = require("../enum/cache-type.enum");
+const method_cache_provider_resolver_1 = require("../resolver/method-cache-provider.resolver");
+class MethodCacheService {
+    clearAllCache() {
         this.clearMemoryCache();
         this.clearStorageCache();
         this.clearSessionCache();
-    };
-    MethodCacheService.prototype.clearContainer = function (container) {
+    }
+    clearContainer(container) {
         this.clearMemoryContainer(container);
         this.clearSessionContainer(container);
         this.clearStorageContainer(container);
-    };
-    MethodCacheService.prototype.clearMemoryCache = function () {
+    }
+    clearMemoryCache() {
         this.clearCache(cache_type_enum_1.CacheType.Memory);
-    };
-    MethodCacheService.prototype.clearMemoryContainer = function (container) {
+    }
+    clearMemoryContainer(container) {
         this.clearContainerType(cache_type_enum_1.CacheType.Memory, container);
-    };
-    MethodCacheService.prototype.clearMemoryKeyCache = function (key) {
+    }
+    clearMemoryKeyCache(key) {
         this.clearKeyCache(cache_type_enum_1.CacheType.Memory, key);
-    };
-    MethodCacheService.prototype.clearSessionCache = function () {
+    }
+    clearSessionCache() {
         this.clearCache(cache_type_enum_1.CacheType.Session);
-    };
-    MethodCacheService.prototype.clearSessionContainer = function (container) {
+    }
+    clearSessionContainer(container) {
         this.clearContainerType(cache_type_enum_1.CacheType.Session, container);
-    };
-    MethodCacheService.prototype.clearSessionKeyCache = function (key) {
+    }
+    clearSessionKeyCache(key) {
         this.clearKeyCache(cache_type_enum_1.CacheType.Session, key);
-    };
-    MethodCacheService.prototype.clearStorageCache = function () {
+    }
+    clearStorageCache() {
         this.clearCache(cache_type_enum_1.CacheType.Storage);
-    };
-    MethodCacheService.prototype.clearStorageContainer = function (container) {
+    }
+    clearStorageContainer(container) {
         this.clearContainerType(cache_type_enum_1.CacheType.Storage, container);
-    };
-    MethodCacheService.prototype.clearStorageKeyCache = function (key) {
+    }
+    clearStorageKeyCache(key) {
         this.clearKeyCache(cache_type_enum_1.CacheType.Storage, key);
-    };
-    MethodCacheService.prototype.clearCache = function (type) {
+    }
+    clearCache(type) {
         method_cache_provider_resolver_1.getMethodCacheProvider(type).clearCache();
-    };
-    MethodCacheService.prototype.clearContainerType = function (type, container) {
+    }
+    clearContainerType(type, container) {
         method_cache_provider_resolver_1.getMethodCacheProvider(type).clearKeyContainer(container);
-    };
-    MethodCacheService.prototype.clearKeyCache = function (type, key) {
+    }
+    clearKeyCache(type, key) {
         method_cache_provider_resolver_1.getMethodCacheProvider(type).clearKeyCache(key);
-    };
-    return MethodCacheService;
-}());
+    }
+}
 exports.MethodCacheService = MethodCacheService;

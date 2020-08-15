@@ -1,69 +1,67 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseCacheProvider = void 0;
-var cache_container_object_1 = require("../object/cache-container.object");
-var BaseCacheProvider = /** @class */ (function () {
-    function BaseCacheProvider() {
+const cache_container_object_1 = require("../object/cache-container.object");
+class BaseCacheProvider {
+    constructor() {
         this.cache = [];
         this.containers = [];
     }
-    BaseCacheProvider.prototype.addToContainer = function (options, cacheObject) {
-        var container;
+    addToContainer(options, cacheObject) {
+        let container;
         if (options.key) {
             container = this.getCacheContainer(options.key);
         }
         container = container || this.initiateCacheContainer(options);
         container.addCache(cacheObject);
-    };
-    BaseCacheProvider.prototype.clearCache = function () {
-        this.cache.forEach(function (cache) { return cache.clear(); });
+    }
+    clearCache() {
+        this.cache.forEach((cache) => cache.clear());
         this.clearContainers();
-    };
-    BaseCacheProvider.prototype.clearContainer = function (container) {
+    }
+    clearContainer(container) {
         container.clear(this.cacheType);
-    };
-    BaseCacheProvider.prototype.clearContainers = function () {
-        var _this = this;
-        this.containers.forEach(function (container) { return _this.clearContainer(container); });
-    };
-    BaseCacheProvider.prototype.clearKeyCache = function (key) {
-        var cacheObject = this.getCacheObject(key);
+    }
+    clearContainers() {
+        this.containers.forEach((container) => this.clearContainer(container));
+    }
+    clearKeyCache(key) {
+        const cacheObject = this.getCacheObject(key);
         if (cacheObject) {
             cacheObject.clear();
         }
-    };
-    BaseCacheProvider.prototype.clearKeyContainer = function (containerKey) {
-        var container = this.getCacheContainer(containerKey);
+    }
+    clearKeyContainer(containerKey) {
+        const container = this.getCacheContainer(containerKey);
         if (container) {
             this.clearContainer(container);
         }
-    };
-    BaseCacheProvider.prototype.createCacheObject = function (options) {
-        var obj;
+    }
+    createCacheObject(options) {
+        let obj;
         if (options.key) {
             obj = this.getCacheObject(options.key);
         }
         return obj || this.initiateCacheObject(options);
-    };
-    BaseCacheProvider.prototype.getCacheObject = function (key) {
-        return this.cache.find(function (cache) { return cache.key === key; });
-    };
-    BaseCacheProvider.prototype.setCache = function (options, args, cache) {
+    }
+    getCacheObject(key) {
+        return this.cache.find((cache) => cache.key === key);
+    }
+    setCache(options, args, cache) {
         this.createCacheObject(options).setCache(args, cache);
-    };
-    BaseCacheProvider.prototype.getCacheContainer = function (containerKey) {
-        return this.containers.filter(function (container) { return container.key === containerKey; })[0];
-    };
-    BaseCacheProvider.prototype.initiateCacheObject = function (options) {
-        var cacheObject = new this.cacheObjectType(options);
+    }
+    getCacheContainer(containerKey) {
+        return this.containers.filter((container) => container.key === containerKey)[0];
+    }
+    initiateCacheObject(options) {
+        const cacheObject = new this.cacheObjectType(options);
         this.cache.push(cacheObject);
         return cacheObject;
-    };
-    BaseCacheProvider.prototype.initiateCacheContainer = function (options) {
-        var container = new cache_container_object_1.CacheContainerObject(options);
+    }
+    initiateCacheContainer(options) {
+        const container = new cache_container_object_1.CacheContainerObject(options);
         this.containers.push(container);
         return container;
-    };
-    return BaseCacheProvider;
-}());
+    }
+}
 exports.BaseCacheProvider = BaseCacheProvider;

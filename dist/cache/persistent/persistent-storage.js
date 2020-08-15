@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PersistentStorage = void 0;
-var storage_keys_constant_1 = require("../../core/constant/storage-keys.constant");
-var cache_type_enum_1 = require("../../core/enum/cache-type.enum");
-var PersistentStorage = /** @class */ (function () {
-    function PersistentStorage(cacheType) {
+const storage_keys_constant_1 = require("../../core/constant/storage-keys.constant");
+const cache_type_enum_1 = require("../../core/enum/cache-type.enum");
+class PersistentStorage {
+    constructor(cacheType) {
         this.cacheType = cacheType;
         this.cache = {};
         if (cacheType === cache_type_enum_1.CacheType.Session && typeof sessionStorage !== 'undefined') {
@@ -14,34 +14,33 @@ var PersistentStorage = /** @class */ (function () {
             this.storage = localStorage;
         }
     }
-    PersistentStorage.prototype.getStorageItems = function () {
+    getStorageItems() {
         return this.getItem(storage_keys_constant_1.LocalStorageCacheKey) || [];
-    };
-    PersistentStorage.prototype.setStorageItems = function (items) {
+    }
+    setStorageItems(items) {
         this.setItem(storage_keys_constant_1.LocalStorageCacheKey, items);
-    };
-    PersistentStorage.prototype.getContainerItems = function () {
+    }
+    getContainerItems() {
         return this.getItem(storage_keys_constant_1.LocalStorageContainerKey) || [];
-    };
-    PersistentStorage.prototype.setContainerItems = function (items) {
+    }
+    setContainerItems(items) {
         this.setItem(storage_keys_constant_1.LocalStorageContainerKey, items);
-    };
-    PersistentStorage.prototype.setItem = function (key, data) {
+    }
+    setItem(key, data) {
         if (this.storage) {
             this.storage.setItem(key, JSON.stringify(data));
         }
         else {
             this.cache[key] = data;
         }
-    };
-    PersistentStorage.prototype.getItem = function (key) {
+    }
+    getItem(key) {
         if (this.storage) {
             return JSON.parse(this.storage.getItem(key) || '[]');
         }
         else {
             return this.cache[key];
         }
-    };
-    return PersistentStorage;
-}());
+    }
+}
 exports.PersistentStorage = PersistentStorage;

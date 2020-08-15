@@ -1,24 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = require("../..");
-var memory_cache_object_1 = require("../../cache/memory/object/memory-cache.object");
-var session_cache_object_1 = require("../../cache/persistent/session/object/session-cache.object");
-describe('Cache Object', function () {
-    var key = 'key';
-    var args = 'args';
-    var cache = 'cache';
-    var ttl = 50;
-    describe('default', function () {
-        var cacheObject = new memory_cache_object_1.MemoryCacheObject({ key: key });
-        it('should have cache after set', function () {
+const __1 = require("../..");
+const memory_cache_object_1 = require("../../cache/memory/object/memory-cache.object");
+const session_cache_object_1 = require("../../cache/persistent/session/object/session-cache.object");
+describe('Cache Object', () => {
+    const key = 'key';
+    const args = 'args';
+    const cache = 'cache';
+    const ttl = 50;
+    describe('default', () => {
+        const cacheObject = new memory_cache_object_1.MemoryCacheObject({ key });
+        it('should have cache after set', () => {
             cacheObject.setCache(args, cache);
             expect(cacheObject.hasCache(args)).toBeTruthy();
         });
-        it('should have the same cache as set', function () {
+        it('should have the same cache as set', () => {
             cacheObject.setCache(args, cache);
             expect(cacheObject.getCache(args)).toEqual(cache);
         });
-        it('should have no cache after clear', function () {
+        it('should have no cache after clear', () => {
             cacheObject.setCache(args, cache);
             cacheObject.clearArgs(args);
             expect(cacheObject.hasCache(args)).toBeFalsy();
@@ -26,89 +26,89 @@ describe('Cache Object', function () {
             cacheObject.clear();
             expect(cacheObject.hasCache(args)).toBeFalsy();
         });
-        it('should not be expired', function () {
+        it('should not be expired', () => {
             cacheObject.setCache(args, cache);
             expect(cacheObject.isExpired(args)).toBeFalsy();
         });
     });
-    describe('TTL', function () {
-        describe('using seconds', function () {
-            var cacheObject = new memory_cache_object_1.MemoryCacheObject({ key: key, ttl: ttl / 1000 });
-            beforeEach(function () {
+    describe('TTL', () => {
+        describe('using seconds', () => {
+            const cacheObject = new memory_cache_object_1.MemoryCacheObject({ key, ttl: ttl / 1000 });
+            beforeEach(() => {
                 cacheObject.setCache(args, cache);
             });
-            it('should not be expired', function () {
+            it('should not be expired', () => {
                 expect(cacheObject.isExpired(args)).toBeFalsy();
             });
-            it('should be expired', function (done) {
-                setTimeout(function () {
+            it('should be expired', done => {
+                setTimeout(() => {
                     expect(cacheObject.isExpired(args)).toBeTruthy();
                     done();
                 }, ttl + 1);
             });
         });
-        describe('using date object', function () {
-            var cacheObject;
-            beforeEach(function () {
-                cacheObject = new memory_cache_object_1.MemoryCacheObject({ key: key, ttl: new Date(Date.now() + ttl) });
+        describe('using date object', () => {
+            let cacheObject;
+            beforeEach(() => {
+                cacheObject = new memory_cache_object_1.MemoryCacheObject({ key, ttl: new Date(Date.now() + ttl) });
                 cacheObject.setCache(args, cache);
             });
-            it('should not be expired', function () {
+            it('should not be expired', () => {
                 expect(cacheObject.isExpired(args)).toBeFalsy();
             });
-            it('should be expired', function (done) {
-                setTimeout(function () {
+            it('should be expired', done => {
+                setTimeout(() => {
                     expect(cacheObject.isExpired(args)).toBeTruthy();
                     done();
                 }, ttl + 1);
             });
         });
-        describe('using date string', function () {
-            var timestamp = Date.now() + ttl;
-            var cacheObject;
-            beforeEach(function () {
+        describe('using date string', () => {
+            let timestamp = Date.now() + ttl;
+            let cacheObject;
+            beforeEach(() => {
                 timestamp = Date.now() + ttl;
-                var dateString = new Date(timestamp).toLocaleString();
-                cacheObject = new memory_cache_object_1.MemoryCacheObject({ key: key, ttl: dateString });
+                const dateString = new Date(timestamp).toLocaleString();
+                cacheObject = new memory_cache_object_1.MemoryCacheObject({ key, ttl: dateString });
                 cacheObject.setCache(args, cache);
             });
-            it('should have close to the same timestamp as the date string given', function () {
+            it('should have close to the same timestamp as the date string given', () => {
                 expect(cacheObject['ttl'][args] - timestamp).toBeLessThan(2000);
             });
-            it('should not be expired', function () {
+            it('should not be expired', () => {
                 expect(cacheObject.isExpired(args)).toBeFalsy();
             });
-            it('should be expired', function (done) {
-                setTimeout(function () {
+            it('should be expired', done => {
+                setTimeout(() => {
                     expect(cacheObject.isExpired(args)).toBeTruthy();
                     done();
                 }, ttl + 1);
             });
         });
     });
-    describe('inherit Cache Container Options', function () {
-        var options = {
-            key: key,
+    describe('inherit Cache Container Options', () => {
+        const options = {
+            key,
             returnType: __1.CacheReturnType.Promise,
-            ttl: ttl
+            ttl
         };
-        it('should inherit the returnType', function () {
-            var cacheObject = new memory_cache_object_1.MemoryCacheObject({ key: key });
+        it('should inherit the returnType', () => {
+            const cacheObject = new memory_cache_object_1.MemoryCacheObject({ key });
             cacheObject.inheritContainerOptions(options);
             expect(cacheObject.options.returnType).toEqual(__1.CacheReturnType.Promise);
         });
-        it('should inherit the ttl', function () {
-            var cacheObject = new memory_cache_object_1.MemoryCacheObject({ key: key });
+        it('should inherit the ttl', () => {
+            const cacheObject = new memory_cache_object_1.MemoryCacheObject({ key });
             cacheObject.inheritContainerOptions(options);
             expect(cacheObject.options.ttl).toEqual(ttl);
         });
-        it('should not override the returnType', function () {
-            var cacheObject = new session_cache_object_1.SessionCacheObject({ key: key, returnType: __1.CacheReturnType.Promise });
+        it('should not override the returnType', () => {
+            const cacheObject = new session_cache_object_1.SessionCacheObject({ key, returnType: __1.CacheReturnType.Promise });
             cacheObject.inheritContainerOptions(options);
             expect(cacheObject.options.returnType).toEqual(__1.CacheReturnType.Promise);
         });
-        it('should not override the ttl', function () {
-            var cacheObject = new memory_cache_object_1.MemoryCacheObject({ key: key, ttl: ttl * 10 });
+        it('should not override the ttl', () => {
+            const cacheObject = new memory_cache_object_1.MemoryCacheObject({ key, ttl: ttl * 10 });
             cacheObject.inheritContainerOptions(options);
             expect(cacheObject.options.ttl).toEqual(ttl * 10);
         });

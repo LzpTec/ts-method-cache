@@ -1,27 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CacheContainerObject = void 0;
-var CacheContainerObject = /** @class */ (function () {
-    function CacheContainerObject(options) {
+class CacheContainerObject {
+    constructor(options) {
         this.options = options;
         this.cacheObjects = [];
     }
-    Object.defineProperty(CacheContainerObject.prototype, "key", {
-        get: function () {
-            return this.options.key;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    CacheContainerObject.prototype.addCache = function (cacheObject) {
+    get key() {
+        return this.options.key;
+    }
+    addCache(cacheObject) {
         if (this.cacheObjects.indexOf(cacheObject) === -1) {
             this.cacheObjects.push(cacheObject);
             cacheObject.inheritContainerOptions(this.options);
         }
-    };
-    CacheContainerObject.prototype.clear = function (cacheType) {
-        this.cacheObjects.filter(function (cache) { return !cacheType || cache.cacheType === cacheType; }).forEach(function (cache) { return cache.clear(); });
-    };
-    return CacheContainerObject;
-}());
+    }
+    clear(cacheType) {
+        this.cacheObjects.filter((cache) => !cacheType || cache.cacheType === cacheType).forEach((cache) => cache.clear());
+    }
+}
 exports.CacheContainerObject = CacheContainerObject;
