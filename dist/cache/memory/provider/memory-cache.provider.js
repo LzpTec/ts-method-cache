@@ -1,15 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MemoryCacheProvider = void 0;
-const cache_type_enum_1 = require("../../../core/enum/cache-type.enum");
-const base_cache_provider_1 = require("../../../core/provider/base-cache.provider");
-const memory_cache_object_1 = require("../object/memory-cache.object");
-class MemoryCacheProvider extends base_cache_provider_1.BaseCacheProvider {
+import { CacheType } from '../../../core/enum/cache-type.enum';
+import { BaseCacheProvider } from '../../../core/provider/base-cache.provider';
+import { MemoryCacheObject } from '../object/memory-cache.object';
+export class MemoryCacheProvider extends BaseCacheProvider {
     constructor() {
         super(...arguments);
         this.cache = [];
-        this.cacheType = cache_type_enum_1.CacheType.Memory;
-        this.cacheObjectType = memory_cache_object_1.MemoryCacheObject;
+        this.cacheType = CacheType.Memory;
+        this.cacheObjectType = MemoryCacheObject;
     }
 }
-exports.MemoryCacheProvider = MemoryCacheProvider;

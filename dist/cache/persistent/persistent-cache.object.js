@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PersistentCacheObject = void 0;
-const cache_return_type_enum_1 = require("../../core/enum/cache-return-type.enum");
-const base_cache_object_1 = require("../../core/object/base-cache.object");
-class PersistentCacheObject extends base_cache_object_1.BaseCacheObject {
+import { CacheReturnType } from '../../core/enum/cache-return-type.enum';
+import { BaseCacheObject } from '../../core/object/base-cache.object';
+export class PersistentCacheObject extends BaseCacheObject {
     constructor(options) {
         super(options);
     }
@@ -11,10 +8,10 @@ class PersistentCacheObject extends base_cache_object_1.BaseCacheObject {
         this.items = {};
         Object.keys(items).forEach((item) => {
             switch (this.returnType) {
-                case cache_return_type_enum_1.CacheReturnType.Promise:
+                case CacheReturnType.Promise:
                     this.items[item] = Promise.resolve(items[item]);
                     break;
-                case cache_return_type_enum_1.CacheReturnType.Static:
+                case CacheReturnType.Static:
                 default:
                     this.items[item] = items[item];
             }
@@ -32,10 +29,10 @@ class PersistentCacheObject extends base_cache_object_1.BaseCacheObject {
         const items = {};
         await Promise.all(Object.keys(this.items).map(async (item) => {
             switch (this.returnType) {
-                case cache_return_type_enum_1.CacheReturnType.Promise:
+                case CacheReturnType.Promise:
                     items[item] = await this.items[item];
                     break;
-                case cache_return_type_enum_1.CacheReturnType.Static:
+                case CacheReturnType.Static:
                 default:
                     items[item] = this.items[item];
             }
@@ -43,4 +40,3 @@ class PersistentCacheObject extends base_cache_object_1.BaseCacheObject {
         return items;
     }
 }
-exports.PersistentCacheObject = PersistentCacheObject;

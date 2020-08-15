@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseCacheObject = void 0;
-const cache_return_type_enum_1 = require("../enum/cache-return-type.enum");
-class BaseCacheObject {
+import { CacheReturnType } from '../enum/cache-return-type.enum';
+export class BaseCacheObject {
     constructor(options) {
         this.options = options;
         this.items = {};
@@ -12,7 +9,7 @@ class BaseCacheObject {
         return this.options.key || '';
     }
     get returnType() {
-        return this.options.returnType || cache_return_type_enum_1.CacheReturnType.Static;
+        return this.options.returnType || CacheReturnType.Static;
     }
     clear() {
         Object.keys(this.items).forEach((args) => this.clearArgs(args));
@@ -64,4 +61,3 @@ class BaseCacheObject {
         }
     }
 }
-exports.BaseCacheObject = BaseCacheObject;

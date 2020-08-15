@@ -1,9 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const string_util_1 = require("./string.util");
+import { createGUID } from './string.util';
 describe('String Util', () => {
     describe('GUID generator, createGuide', () => {
-        const guid = string_util_1.createGUID();
+        const guid = createGUID();
         it('generates a string of 36 characters', () => {
             expect(guid.length).toBe(36);
         });
@@ -20,7 +18,7 @@ describe('String Util', () => {
             expect(/^[0-9a-f]{32}$/.test(guid.replace(/-/g, ''))).toBeTruthy();
         });
         it('it generates two different strings', () => {
-            expect(guid !== string_util_1.createGUID()).toBeTruthy();
+            expect(guid !== createGUID()).toBeTruthy();
         });
     });
 });

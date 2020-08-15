@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PersistentCacheProvider = void 0;
-const base_cache_provider_1 = require("../../core/provider/base-cache.provider");
-class PersistentCacheProvider extends base_cache_provider_1.BaseCacheProvider {
+import { BaseCacheProvider } from '../../core/provider/base-cache.provider';
+export class PersistentCacheProvider extends BaseCacheProvider {
     constructor() {
         super();
     }
@@ -72,4 +69,3 @@ class PersistentCacheProvider extends base_cache_provider_1.BaseCacheProvider {
         this.storage.setContainerItems(storageContainerCache);
     }
 }
-exports.PersistentCacheProvider = PersistentCacheProvider;

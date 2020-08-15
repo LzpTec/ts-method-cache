@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseCacheProvider = void 0;
-const cache_container_object_1 = require("../object/cache-container.object");
-class BaseCacheProvider {
+import { CacheContainerObject } from '../object/cache-container.object';
+export class BaseCacheProvider {
     constructor() {
         this.cache = [];
         this.containers = [];
@@ -59,9 +56,8 @@ class BaseCacheProvider {
         return cacheObject;
     }
     initiateCacheContainer(options) {
-        const container = new cache_container_object_1.CacheContainerObject(options);
+        const container = new CacheContainerObject(options);
         this.containers.push(container);
         return container;
     }
 }
-exports.BaseCacheProvider = BaseCacheProvider;

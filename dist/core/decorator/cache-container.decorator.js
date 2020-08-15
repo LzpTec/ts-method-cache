@@ -1,9 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CacheContainer = void 0;
-const decorator_util_1 = require("../util/decorator.util");
-function CacheContainer(options) {
-    options = decorator_util_1.normalizeCacheContainerSettings(options);
-    return decorator_util_1.createCacheContainerDecorator(options);
+import { createCacheContainerDecorator, normalizeCacheContainerSettings } from '../util/decorator.util';
+export function CacheContainer(options) {
+    options = normalizeCacheContainerSettings(options);
+    return createCacheContainerDecorator(options);
 }
-exports.CacheContainer = CacheContainer;

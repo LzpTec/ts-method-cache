@@ -1,12 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.StorageCacheObject = void 0;
-const cache_type_enum_1 = require("../../../../core/enum/cache-type.enum");
-const persistent_cache_object_1 = require("../../persistent-cache.object");
-class StorageCacheObject extends persistent_cache_object_1.PersistentCacheObject {
+import { CacheType } from '../../../../core/enum/cache-type.enum';
+import { PersistentCacheObject } from '../../persistent-cache.object';
+export class StorageCacheObject extends PersistentCacheObject {
     constructor() {
         super(...arguments);
-        this.cacheType = cache_type_enum_1.CacheType.Storage;
+        this.cacheType = CacheType.Storage;
     }
 }
-exports.StorageCacheObject = StorageCacheObject;

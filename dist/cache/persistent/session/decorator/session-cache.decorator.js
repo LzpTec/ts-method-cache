@@ -1,9 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.SessionCache = void 0;
-const base_cache_decorator_1 = require("../../../../core/decorator/base-cache.decorator");
-const cache_type_enum_1 = require("../../../../core/enum/cache-type.enum");
-function SessionCache(options) {
-    return base_cache_decorator_1.baseCacheDecorator(cache_type_enum_1.CacheType.Session, options);
+import { baseCacheDecorator } from '../../../../core/decorator/base-cache.decorator';
+import { CacheType } from '../../../../core/enum/cache-type.enum';
+export function SessionCache(options) {
+    return baseCacheDecorator(CacheType.Session, options);
 }
-exports.SessionCache = SessionCache;

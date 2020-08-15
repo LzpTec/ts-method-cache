@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const memory_cache_object_1 = require("../../cache/memory/object/memory-cache.object");
-const cache_container_object_1 = require("./cache-container.object");
+import { MemoryCacheObject } from '../../cache/memory/object/memory-cache.object';
+import { CacheContainerObject } from './cache-container.object';
 describe('Cache Container Object', () => {
     const key = 'key';
     const args = 'args';
@@ -9,8 +7,8 @@ describe('Cache Container Object', () => {
     let container;
     let cache;
     beforeEach(() => {
-        container = new cache_container_object_1.CacheContainerObject({ key });
-        cache = new memory_cache_object_1.MemoryCacheObject({});
+        container = new CacheContainerObject({ key });
+        cache = new MemoryCacheObject({});
         container.addCache(cache);
     });
     it('should set the options key correctly', () => {

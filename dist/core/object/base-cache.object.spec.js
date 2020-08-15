@@ -1,15 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const __1 = require("../..");
-const memory_cache_object_1 = require("../../cache/memory/object/memory-cache.object");
-const session_cache_object_1 = require("../../cache/persistent/session/object/session-cache.object");
+import { CacheReturnType } from '../..';
+import { MemoryCacheObject } from '../../cache/memory/object/memory-cache.object';
+import { SessionCacheObject } from '../../cache/persistent/session/object/session-cache.object';
 describe('Cache Object', () => {
     const key = 'key';
     const args = 'args';
     const cache = 'cache';
     const ttl = 50;
     describe('default', () => {
-        const cacheObject = new memory_cache_object_1.MemoryCacheObject({ key });
+        const cacheObject = new MemoryCacheObject({ key });
         it('should have cache after set', () => {
             cacheObject.setCache(args, cache);
             expect(cacheObject.hasCache(args)).toBeTruthy();
@@ -33,7 +31,7 @@ describe('Cache Object', () => {
     });
     describe('TTL', () => {
         describe('using seconds', () => {
-            const cacheObject = new memory_cache_object_1.MemoryCacheObject({ key, ttl: ttl / 1000 });
+            const cacheObject = new MemoryCacheObject({ key, ttl: ttl / 1000 });
             beforeEach(() => {
                 cacheObject.setCache(args, cache);
             });
@@ -50,7 +48,7 @@ describe('Cache Object', () => {
         describe('using date object', () => {
             let cacheObject;
             beforeEach(() => {
-                cacheObject = new memory_cache_object_1.MemoryCacheObject({ key, ttl: new Date(Date.now() + ttl) });
+                cacheObject = new MemoryCacheObject({ key, ttl: new Date(Date.now() + ttl) });
                 cacheObject.setCache(args, cache);
             });
             it('should not be expired', () => {
@@ -69,7 +67,7 @@ describe('Cache Object', () => {
             beforeEach(() => {
                 timestamp = Date.now() + ttl;
                 const dateString = new Date(timestamp).toLocaleString();
-                cacheObject = new memory_cache_object_1.MemoryCacheObject({ key, ttl: dateString });
+                cacheObject = new MemoryCacheObject({ key, ttl: dateString });
                 cacheObject.setCache(args, cache);
             });
             it('should have close to the same timestamp as the date string given', () => {
@@ -89,26 +87,26 @@ describe('Cache Object', () => {
     describe('inherit Cache Container Options', () => {
         const options = {
             key,
-            returnType: __1.CacheReturnType.Promise,
+            returnType: CacheReturnType.Promise,
             ttl
         };
         it('should inherit the returnType', () => {
-            const cacheObject = new memory_cache_object_1.MemoryCacheObject({ key });
+            const cacheObject = new MemoryCacheObject({ key });
             cacheObject.inheritContainerOptions(options);
-            expect(cacheObject.options.returnType).toEqual(__1.CacheReturnType.Promise);
+            expect(cacheObject.options.returnType).toEqual(CacheReturnType.Promise);
         });
         it('should inherit the ttl', () => {
-            const cacheObject = new memory_cache_object_1.MemoryCacheObject({ key });
+            const cacheObject = new MemoryCacheObject({ key });
             cacheObject.inheritContainerOptions(options);
             expect(cacheObject.options.ttl).toEqual(ttl);
         });
         it('should not override the returnType', () => {
-            const cacheObject = new session_cache_object_1.SessionCacheObject({ key, returnType: __1.CacheReturnType.Promise });
+            const cacheObject = new SessionCacheObject({ key, returnType: CacheReturnType.Promise });
             cacheObject.inheritContainerOptions(options);
-            expect(cacheObject.options.returnType).toEqual(__1.CacheReturnType.Promise);
+            expect(cacheObject.options.returnType).toEqual(CacheReturnType.Promise);
         });
         it('should not override the ttl', () => {
-            const cacheObject = new memory_cache_object_1.MemoryCacheObject({ key, ttl: ttl * 10 });
+            const cacheObject = new MemoryCacheObject({ key, ttl: ttl * 10 });
             cacheObject.inheritContainerOptions(options);
             expect(cacheObject.options.ttl).toEqual(ttl * 10);
         });

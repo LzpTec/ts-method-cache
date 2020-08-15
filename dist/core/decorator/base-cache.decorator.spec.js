@@ -1,13 +1,11 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const cache_type_enum_1 = require("../enum/cache-type.enum");
-const base_cache_decorator_1 = require("./base-cache.decorator");
+import { CacheType } from '../enum/cache-type.enum';
+import { baseCacheDecorator } from './base-cache.decorator';
 const increment = 5;
 class TestCache {
     constructor() {
@@ -24,10 +22,10 @@ class TestCache {
     }
 }
 __decorate([
-    base_cache_decorator_1.baseCacheDecorator(cache_type_enum_1.CacheType.Memory)
+    baseCacheDecorator(CacheType.Memory)
 ], TestCache.prototype, "testGetter", null);
 __decorate([
-    base_cache_decorator_1.baseCacheDecorator(cache_type_enum_1.CacheType.Memory)
+    baseCacheDecorator(CacheType.Memory)
 ], TestCache.prototype, "testMethod", null);
 describe('Cache decorator is properly set', () => {
     let testCache;
@@ -60,7 +58,7 @@ describe('Cache decorator is properly set', () => {
                 }
             }
             __decorate([
-                base_cache_decorator_1.baseCacheDecorator(cache_type_enum_1.CacheType.Memory)
+                baseCacheDecorator(CacheType.Memory)
             ], TestSetter.prototype, "setter", null);
             const t = new TestSetter();
         }).toThrowError(`Can't set cache decorator on a setter`);

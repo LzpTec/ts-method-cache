@@ -1,17 +1,15 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const memory_cache_decorator_1 = require("../../cache/memory/decorator/memory-cache.decorator");
-const session_cache_decorator_1 = require("../../cache/persistent/session/decorator/session-cache.decorator");
-const storage_cache_decorator_1 = require("../../cache/persistent/storage/decorator/storage-cache.decorator");
-const cache_container_decorator_1 = require("../decorator/cache-container.decorator");
-const promise_util_1 = require("../util/promise.util");
-const method_cache_service_1 = require("./method-cache.service");
+import { MemoryCache } from '../../cache/memory/decorator/memory-cache.decorator';
+import { SessionCache } from '../../cache/persistent/session/decorator/session-cache.decorator';
+import { StorageCache } from '../../cache/persistent/storage/decorator/storage-cache.decorator';
+import { CacheContainer } from '../decorator/cache-container.decorator';
+import { wait } from '../util/promise.util';
+import { MethodCacheService } from './method-cache.service';
 const testCacheContainer = 'testCacheContainer';
 const testMemoryMethod = 'testMemoryMethod';
 const testSessionMethod = 'testSessionMethod';
@@ -33,29 +31,29 @@ let TestCache = class TestCache {
     }
 };
 __decorate([
-    memory_cache_decorator_1.MemoryCache(testMemoryMethod)
+    MemoryCache(testMemoryMethod)
 ], TestCache.prototype, "testMemoryMethod", null);
 __decorate([
-    session_cache_decorator_1.SessionCache(testSessionMethod)
+    SessionCache(testSessionMethod)
 ], TestCache.prototype, "testSessionMethod", null);
 __decorate([
-    storage_cache_decorator_1.StorageCache(testStorageMethod)
+    StorageCache(testStorageMethod)
 ], TestCache.prototype, "testStorageMethod", null);
 TestCache = __decorate([
-    cache_container_decorator_1.CacheContainer(testCacheContainer)
+    CacheContainer(testCacheContainer)
 ], TestCache);
 describe('Method cache service can clear cache', () => {
     let testCache;
-    const cacheService = new method_cache_service_1.MethodCacheService();
+    const cacheService = new MethodCacheService();
     const runTestMethodsExpect = async (memoryCount, sessionCount, storageCount) => {
         testCache.testMemoryMethod();
         testCache.testSessionMethod();
         testCache.testStorageMethod();
         expect(testCache.testMemoryMethodCalled).toEqual(memoryCount);
         expect(testCache.testSessionMethodCalled).toEqual(sessionCount);
-        await promise_util_1.wait();
+        await wait();
         expect(testCache.testStorageMethodCalled).toEqual(storageCount);
-        await promise_util_1.wait();
+        await wait();
     };
     cacheService.clearAllCache();
     beforeEach(async () => {

@@ -1,15 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.baseCacheDecorator = void 0;
-const decorator_util_1 = require("../util/decorator.util");
-function baseCacheDecorator(cacheType, options) {
-    options = decorator_util_1.normalizeCacheSettings(options);
+import { createCacheDecorator, normalizeCacheSettings } from '../util/decorator.util';
+export function baseCacheDecorator(cacheType, options) {
+    options = normalizeCacheSettings(options);
     return (target, method, descriptor) => {
         if (descriptor.hasOwnProperty('get') && descriptor.get) {
-            descriptor.get = decorator_util_1.createCacheDecorator(cacheType, target, descriptor.get, options);
+            descriptor.get = createCacheDecorator(cacheType, target, descriptor.get, options);
         }
         else if (!descriptor.hasOwnProperty('set') && descriptor.value) {
-            descriptor.value = decorator_util_1.createCacheDecorator(cacheType, target, descriptor.value, options);
+            descriptor.value = createCacheDecorator(cacheType, target, descriptor.value, options);
         }
         else {
             throw new Error(`Can't set cache decorator on a setter`);
@@ -17,4 +14,3 @@ function baseCacheDecorator(cacheType, options) {
         return descriptor;
     };
 }
-exports.baseCacheDecorator = baseCacheDecorator;

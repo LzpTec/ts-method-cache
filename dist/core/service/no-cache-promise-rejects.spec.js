@@ -1,13 +1,11 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const memory_cache_decorator_1 = require("../../cache/memory/decorator/memory-cache.decorator");
-const method_cache_service_1 = require("./method-cache.service");
+import { MemoryCache } from '../../cache/memory/decorator/memory-cache.decorator';
+import { MethodCacheService } from './method-cache.service';
 const msg = 'error msg';
 const err = () => new Error(msg);
 const returnValue = 'return value';
@@ -52,29 +50,29 @@ class Target {
     }
 }
 __decorate([
-    memory_cache_decorator_1.MemoryCache()
+    MemoryCache()
 ], Target.prototype, "nonThrowingMethod", null);
 __decorate([
-    memory_cache_decorator_1.MemoryCache()
+    MemoryCache()
 ], Target.prototype, "throwingMethod", null);
 __decorate([
-    memory_cache_decorator_1.MemoryCache()
+    MemoryCache()
 ], Target.prototype, "asyncNonThrowingMethod", null);
 __decorate([
-    memory_cache_decorator_1.MemoryCache()
+    MemoryCache()
 ], Target.prototype, "asyncThrowingMethod", null);
 __decorate([
-    memory_cache_decorator_1.MemoryCache({ cacheUntilRejected: true })
+    MemoryCache({ cacheUntilRejected: true })
 ], Target.prototype, "asyncNonThrowingNoCacheMethod", null);
 __decorate([
-    memory_cache_decorator_1.MemoryCache({ cacheUntilRejected: true })
+    MemoryCache({ cacheUntilRejected: true })
 ], Target.prototype, "asyncThrowingNoCacheMethod", null);
 __decorate([
-    memory_cache_decorator_1.MemoryCache({ cacheUntilRejected: true })
+    MemoryCache({ cacheUntilRejected: true })
 ], Target.prototype, "nonImmediateAsyncThrowingNoCacheMethod", null);
 describe('Method cache clears on promise reject', () => {
     let target;
-    const cacheService = new method_cache_service_1.MethodCacheService();
+    const cacheService = new MethodCacheService();
     const runMethods = async () => {
         expect(target.nonThrowingMethod()).toEqual(returnValue);
         expect(() => target.throwingMethod()).toThrowError(msg);
